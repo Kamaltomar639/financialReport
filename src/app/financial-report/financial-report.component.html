@@ -1,0 +1,619 @@
+
+<section id="page-content">
+    <div class="header-content">
+        <h2><i class="fa fa-usd"></i>Financial Report</h2>
+        <!-- <div id="google_translate_element"></div> -->
+
+        <div class="breadcrumb-wrapper hidden-xs" style="top:10px" *ngIf="viewType">
+            <ol class="breadcrumb" id="promoSelect">
+               <!-- <li style="margin: 0px 35px;">
+                    <div class='dropdown-container' id="yearSelection">
+                        <div clasng new angular-fontawesomes=''>Choose Year:</div>
+                        <ng-multiselect-dropdown #yearMultiSelect [placeholder]="'Nothing Selected'" [settings]="dorpdownSettingsForYear" [data]="yearList" (onSelect)="onYearSelect($event)" (onDeSelect)="onYearDeSelect($event)" (onDeSelectAll)="onUnSelectAllYear()" (onSelectAll)="onSelectAllYear($event)">
+                        </ng-multiselect-dropdown>
+
+                    </div>
+                    <button id='done_button_year' (click)="doneButtonYear()" style='vertical-align:middle;  background-color: #53bc9c;border-color: #53bc9c;margin-top: 17.5px;margin-left: 5px; ' class='done-button btn btn-primary'>Go</button>
+                </li> -->
+
+
+                <li style="margin: 0px 35px;" *ngIf="userRole == 'Admin'">
+                    <div class='dropdown-container' id='promoter-select-container'>
+                        <div class=''>Choose Promoter:</div>
+                        <ng-multiselect-dropdown #promoterMultiSelect [placeholder]="'Nothing Selected'" [settings]="dropdownSettings" [data]="promoters" (onSelect)="onPromoterSelect($event)" (onDeSelect)="onPromoterDeSelect($event)" (onDeSelectAll)="onUnSelectAllPromoter()"
+                            (onSelectAll)="onSelectAllPromoter($event)">
+                        </ng-multiselect-dropdown>
+
+                    </div>
+                    <button id='done_button_promoter' (click)="doneButtonPromoter()" style='vertical-align:middle;  background-color: #53bc9c;border-color: #53bc9c; margin-top: 17.5px;margin-left: 5px;' class='done-button btn btn-primary'>Go</button>
+
+                </li>
+
+
+                <li style="margin: 0px 35px;">
+                    <div class='dropdown-container' id='venue-select-container'>
+                        <div class='' style='width:auto;'>Choose Venue:</div>
+                        <ng-multiselect-dropdown #venueMultiSelect [placeholder]="'Nothing Selected'" [settings]="dropdownSettings" [data]="venues" (onSelect)="onVenueSelect($event)" (onDeSelect)="onVenueDeSelect($event)" (onDeSelectAll)="onUnSelectAllVenue()" (onSelectAll)="onSelectAllVenue($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <button id='done_button' (click)="doneButtonVenue()" style='vertical-align: middle;  background-color: #53bc9c;border-color: #53bc9c; margin-top: 17.5px;margin-left: 5px; ' class='done-button btn btn-primary'>Go</button>
+
+                </li>
+
+
+            </ol>
+        </div>
+    </div>
+    <div class="body-content animated fadeIn">
+
+        <div id="maindiv" class="container-fluid">
+
+            <!-- <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 mt-5" id="total_counter">
+                <div class="mini-stat clearfix bg-comment-click rounded" id="total_counter_class" style="background-color:transparent;background:transparent;border:2px solid black;padding-bottom: 10px;min-height: 95px !important;">
+                    <span style="background-color:#6AEBBE;border: 1px solid #ccc;width: 60px;
+                    height: 60px;
+                    display: inline-block;
+                    line-height: none;
+                    text-align: center;
+                    font-size: 30px;
+                    background: #6aebbe;
+                    border-radius: 100%;
+                    float: left;
+                    margin-right: 10px;">
+                    <span style="font-size: 13px;color: black;font-weight: 500;"><u>Revenue</u></span></span>
+                    <div class="mini-stat-info" style="color: black;">
+                        <span id="amounts" style="float: left;color: black;font-size: 22px;">${{revenue}} </span><span style="font-size: 16px;float: left;margin-left: 10px;color: black;" *ngIf="userRole == 'Admin'">(${{current_month_revenue}})</span><br><br><br>
+                        <span style="float: left;color:black;font-size: 16px;margin-top: -8px;margin-left: 10px;font-weight: 400;" *ngIf="userRole == 'Admin'">${{upcoming_event_revenue}} Pending</span> 
+                    </div>
+                </div>
+            </div> -->
+
+             <div  class="col-lg-4 col-md-3 col-sm-6 col-xs-6 mt-5" id="total_counter">
+                <div  class="mini-stat clearfix bg-comment-click rounded" style="min-height: 98px !important;" id="total_counter_class">
+                    <span class="mini-stat-icon" style="float: none"><i class="fa fa-usd  fg-usd"
+                                style="color:  #16a085"></i></span>
+                    <div class="mini-stat-info" style="color: white;">
+
+                        <span id="total_ticket" style="font-size:22px">{{revenue}}<!--<span style="float:right;">(<i class="fa fa-arrow-up" style="color: #00d100"></i>12.1%)</span>--></span>Revenue
+                        
+                        
+                    </div>
+                </div>
+            </div> 
+
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 mt-5">
+                <div id="events" class="mini-stat clearfix bg-twitter rounded" style="min-height: 98px;">
+                    <span class="mini-stat-icon" style="float: none"><i class="fa fa-calendar fg-calendar"
+                            style="color: #00a0d1"></i></span>
+                    <div class="mini-stat-info" style="color:white;">
+                        <span id="events" style="font-size:22px">{{events}}</span> Events
+                    </div>
+                </div>
+            </div>
+
+            <div  class="col-lg-4 col-md-3 col-sm-6 col-xs-6 mt-5" id="ticket_counter">
+                <div  class="mini-stat clearfix bg-googleplus rounded" style="min-height: 98px !important;" id="ticket_counter_class">
+                    <span class="mini-stat-icon" style="float: none"><i class="fa fa-ticket fg-ticket"
+                                style="color: #db4a39"></i></span>
+                    <div class="mini-stat-info" style="color: white;">
+
+                        <span id="total_ticket" style="font-size:22px">{{tickets}}</span> Tickets
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 mt-5" *ngIf="userRole == 'Admin'">
+                <div id="tf" class="mini-stat clearfix rounded" style="background-color: #5576c9;min-height: 98px !important;">
+                    <span class="mini-stat-icon" style="float: none"><i class="fa fa-exchange" style="color: #003bd1;"></i></span>
+                    <div class="mini-stat-info" style="color: white;">
+                        <span id="transfer" style="font-size:22px">${{transfers}}</span> Transfers
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 mt-5" *ngIf="userRole == 'Admin'">
+                <div id="py" class="mini-stat clearfix rounded" style="background-color: #743e75;min-height: 98px !important;">
+                    <span class="mini-stat-icon" style="float: none"><i class="fa fa-paper-plane fg-paper-plane"
+                            style="color: #5a055d;"></i></span>
+                    <div class="mini-stat-info" style="color: white;">
+                        <span id="payout" style="font-size:22px">${{payouts}}</span> Payouts
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 mt-5" *ngIf="userRole == 'Admin'">
+                <div id="strip" class="mini-stat clearfix  rounded" style="background-color: #5b600f;min-height: 98px !important;">
+                    <span class="mini-stat-icon"><i class="fa fa-university fg-university"
+                            style="color: #5b600f"></i></span>
+                    <div class="mini-stat-info" style="color: white;">
+                        <span id="stripe" style="font-size:22px">${{stripe}}</span> Stripe
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="only-phone d-fone" *ngIf="!viewType">
+
+            <div style="margin: 20px 40px;">
+                <div class='dropdown-container' id="yearSelection">
+                    <div class=''>Choose Year:</div>
+                    <ng-multiselect-dropdown #yearMultiSelect [placeholder]="'Nothing Selected'" [settings]="dorpdownSettingsForYear" [data]="yearList" (onSelect)="onYearSelect($event)" (onDeSelect)="onYearDeSelect($event)" (onDeSelectAll)="onUnSelectAllYear()" (onSelectAll)="onSelectAllYear($event)">
+                    </ng-multiselect-dropdown>
+
+                </div>
+                <button id='done_button_year' (click)="doneButtonYear()" style='vertical-align:middle;  background-color: #53bc9c;border-color: #53bc9c;margin-top: 19px;margin-left: 5px; ' class='done-button btn btn-primary'>Go</button>
+            </div>
+
+
+            <div style="margin: 20px 40px;" *ngIf="userRole == 'Admin'">
+                <div class='dropdown-container' id='promoter-select-container'>
+                    <div class=''>Choose Promoter:</div>
+                    <ng-multiselect-dropdown #promoterMultiSelect [placeholder]="'Nothing Selected'" [settings]="dropdownSettings" [data]="promoters" (onSelect)="onPromoterSelect($event)" (onDeSelect)="onPromoterDeSelect($event)" (onDeSelectAll)="onUnSelectAllPromoter()"
+                        (onSelectAll)="onSelectAllPromoter($event)">
+                    </ng-multiselect-dropdown>
+
+                </div>
+                <button id='done_button_promoter' (click)="doneButtonPromoter()" style='vertical-align:middle;  background-color: #53bc9c;border-color: #53bc9c; margin-top: 19px;margin-left: 5px;' class='done-button btn btn-primary'>Go</button>
+
+            </div>
+
+
+            <div style="margin: 20px 40px;">
+                <div class='dropdown-container' id='venue-select-container'>
+                    <div class='' style='width:auto;'>Choose Venue:</div>
+                    <ng-multiselect-dropdown #venueMultiSelect [placeholder]="'Nothing Selected'" [settings]="dropdownSettings" [data]="venues" (onSelect)="onVenueSelect($event)" (onDeSelect)="onVenueDeSelect($event)" (onDeSelectAll)="onUnSelectAllVenue()" (onSelectAll)="onSelectAllVenue($event)">
+                    </ng-multiselect-dropdown>
+                </div>
+                <button id='done_button' (click)="doneButtonVenue()" style='vertical-align: middle;  background-color: #53bc9c;border-color: #53bc9c; margin-top: 19px;margin-left: 5px; ' class='done-button btn btn-primary'>Go</button>
+
+            </div>
+
+
+
+
+        </div>
+
+
+        
+        <div class="panel rounded shadow">
+            <div class="panel-heading">
+                <div class="pull-left">
+
+                    <p class="viewCor" id="viewCoordinate" style="margin-left:10px !important;">{{currentTimeFrame}} :</p>
+                    <p id="viewCoordinateX">{{xValue}}</p>
+                    <br>
+                    <p class="viewCor" id="viewType">{{valueType}}</p>
+                    <p id="viewCoordinateY">{{yValue}}</p>
+                </div>
+                <div class="pull-right">
+
+                    <button class="btn btn-sm" data-action="refresh" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Refresh"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Collapse"><i class="fa fa-angle-up"></i></button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body text-center">
+                <div id="panel-body-box" #panelBodyBox style="height:auto;min-width:340px;max-width:1400px;margin-left:auto;margin-right:auto">
+                    <!-- <canvas id="myChart" height="300" width="1150" class="chartjs"></canvas> -->
+                     <canvas baseChart #Chart="base-chart" width="{{chartWidth}}" height="300" [datasets]="lineChartData" [type]="'line'" [legend]="true" [labels]="chartLabels" [legend]="true" [options]="chartOptions" id="myChart">
+                    </canvas> 
+                    <!-- <canvas baseChart #Chart="base-chart" width="800" height="300" [datasets]="lineChartData" [type]="'line'" [legend]="true" [labels]="chartLabels" [legend]="true" [options]="chartOptions" id="myChart">
+                    </canvas> -->
+                </div>
+
+
+
+
+
+
+                <div class="panel rounded shadow panel-lilac" >
+                    <a class="carousel pull-left  btn-rotate" id="previous" (click)="buttonNextPreviousForLineChart('previous')" data-slide="" style="color:black; font-size:18px; cursor:pointer;margin-top: 10px;" *ngIf="prevNext"><i
+                            class="fa fa-angle-left">
+                            <font style="font-size:18px;" face="Open Sans, sans-serif">&nbsp;Previous</font>
+                        </i></a>
+
+                    <a class="carousel pull-right  btn-rotate" id="next" (click)="buttonNextPreviousForLineChart('next')" data-slide="" style="color:black; font-size:18px; cursor:pointer;margin-top:10px" *ngIf="prevNext"><i class="fa">
+                            <font style="font-size:18px;" face="Open Sans, sans-serif">Next&nbsp;</font>
+                        </i><i class="fa fa-angle-right"></i></a>
+                </div>
+                <div class="buttonContainer" style="margin-left:auto;margin-right:auto;width:90%;text-align:center">
+                <!--   
+                    <button type="button" (click)="sortingButton('hourly')" id="buttonhourly" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">H</button>
+                    <button type="button" (click)="sortingButton('daily')" id="buttondaily" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700;background-color:black !important;color:#6aebbe">D</button>
+                    <button type="button" (click)="sortingButton('weekly')" id="buttonweekly" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">W</button>
+                    <button type="button" (click)="sortingButton('monthly')" id="buttonmonthly" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">M</button>
+                    <button type="button" (click)="sortingButton('yearly')" id="buttonyearly" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">Y</button>
+                -->
+                    <button type="button" (click)="sortingButton('1D')" id="button1D" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700;">1D</button>
+                    <button type="button" (click)="sortingButton('1W')" id="button1W" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">1W</button>
+                    <button type="button" (click)="sortingButton('1M')" id="button1M" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700;background-color:black !important;color:#6aebbe">1M</button>
+                    <button type="button" (click)="sortingButton('1Y')" id="button1Y" class="btn btn-xs" style="width:30px !important;margin-left:20px;font-weight:700">1Y</button>
+                    <button type="button" (click)="sortingButton('MTD')" id="buttonMTD" class="btn btn-xs" style="width:37px !important;margin-left:20px;font-weight:700;">MTD</button>
+                    <button type="button" (click)="sortingButton('YTD')" id="buttonYTD" class="btn btn-xs" style="width:35px !important;margin-left:20px;font-weight:700">YTD</button>
+                    <button type="button" (click)="sortingButton('ALL')" id="buttonALL" class="btn btn-xs" style="width:35px !important;margin-left:20px;font-weight:700">ALL</button>
+                    <!--<button type="button" (click)="sortingButton('CUSTOM')" id="buttonCUSTOM" class="btn btn-xs" style="width:57px !important;margin-left:20px;font-weight:750">Custom</button>-->
+                    <button type="button" (click)="customDateChecked()" value="customize" #customDate id="customDate" class="btn btn-xs" style="width:57px !important;margin-left:20px;font-weight:750">Custom</button>
+                    <div class="mt-m-20"></div>
+                    <span id="custome_dates" class="mt-m-20" *ngIf="custom_date_check">
+
+                        <span style="margin-top: -10px !important;font-size: 16px;">From&nbsp;&nbsp;</span>
+                    <mat-form-field class="example-full-width" appearance="fill" style="line-height: none !important;">
+
+                        <input matInput [(ngModel)]="inputDate1" [matDatepicker]="picker1" placeholder="MM/DD/YYYY" (click)="picker1.open()">
+                        <mat-hint>mm/dd/yyyy</mat-hint>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field><span style="margin-top: -10px !important;font-size: 16px;">&nbsp;&nbsp;to&nbsp;&nbsp;</span>
+                    <mat-form-field class="example-full-width" appearance="fill" style="line-height: none !important;">
+
+                        <input matInput [(ngModel)]="inputDate2" [matDatepicker]="picker2" placeholder="MM/DD/YYYY" (click)="picker2.open()">
+                        <mat-hint>mm/dd/yyyy</mat-hint>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                    <button class="btn btn-primary w-55" (click)="getDataAccordingToDateRange()" style="padding:3px;margin-left: 10px;margin-top: -15px;height: 30px;">Done</button>
+                    </span>
+
+                </div>
+                <div class="indicator" #lineChartLoader style="display: block; background-color: whitesmoke;"><span class="spinner"></span></div>
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+
+
+
+        <div class="panel rounded shadow" id="pie_chart_panel" style="margin-top: 20px;">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-title" style="font-weight:bold;">Demographic Breakdown</h3>
+                </div>
+                <div class="pull-right">
+
+                    <!--<button type="button" class="btn btn-inverse" id="export2">Export</button>-->
+                    <!--<a class="btn btn-inverse"  id="Exp">Export</a>-->
+                    <button class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Collapse"><i class="fa fa-angle-up"></i></button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body" #pieChartPanelBody style=" background-color: white;">
+                <div class="row" *ngIf="!pieChartsShow" style="height:200px;width: 99% !important;"></div>
+                <div class="row pieChartsRow" *ngIf="pieChartsShow">
+                    <!-- <div class="col-sm-12 col-md-4 col-lg-4 m-top" id="pieChartArea" style="border-right: 2px solid #ccc;height: 300px;"> -->
+                    <div class="col-sm-12 col-md-4 col-lg-4 m-top" id="pieChartArea" >
+                        <h4 style="text-align: center;"><b>Gender</b></h4>
+                        <div id="piechartforgender" style="margin-top:30px;">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7 col-sm-12 col-7" style="text-align: center">
+                                    <canvas baseChart #genderChart="base-chart" width="160" height="160" [datasets]="genderPieData" [type]="'pie'" [legend]="true" [labels]="genderLabels" [legend]="false" [options]="genderPieOptions" id="myChartPie" style="margin-left: auto;margin-right:auto;">
+                                    </canvas>
+                                </div>
+
+                                <div class="col-md-5 col-lg-5 col-sm-12 col-5" style="margin-top: 50px;padding-right: 0px !important;">
+                                    <div style="vertical-align:center">
+                                        <div class="legends" style="vertical-align: center;float: left;margin-left: -40px;" *ngIf="genderPieData[0].data[0] > 0">
+                                            <div class="legendColor" style="background-color: rgb(255, 99, 132);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                            <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{genderPieData[0].data[0]}}&nbsp;Male&nbsp;({{calculatePercentOfData(genderPieData[0].data)[0]}}%)</p>
+                                        </div>
+
+                                        <div class="legends" style="vertical-align: center;float: left;margin-left: -40px;" *ngIf="genderPieData[0].data[1] > 0">
+                                            <div class="legendColor" style="background-color: rgb(54, 162, 235);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                            <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{genderPieData[0].data[1]}}&nbsp;Female&nbsp;({{calculatePercentOfData(genderPieData[0].data)[1]}}%)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!-- <google-chart [title]="'Gender'" [type]="relationChartType" [data]="genderPieData" [options]="genderPieOptions">
+                                </google-chart> -->
+                            <!-- <div id="pie_chart" [chartData]="genderPieData" [chartOptions]="genderPieOptions" chartType="PieChart" GoogleChart></div> -->
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4 m-top" id="pieChartArea" style="height: 300px;">
+                        <h4 style="text-align: center;"><b>Age</b></h4>
+                        <div id="piechartforavgage" style="background:none;margin-top:30px">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-6">
+                                    <canvas baseChart #ageChart="base-chart" width="160" height="160" [datasets]="agePieData" [type]="'pie'" [labels]="ageLabels" [legend]="false" [options]="genderPieOptions" id="myChartPie" style="margin-left:auto;margin-right:auto">
+                                    </canvas>
+                                </div>
+
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-6" style="padding:0px;margin-top: 50px;">
+
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;" *ngIf="agePieData[0].data[0] > 0">
+                                        <div class="legendColor" style="background-color: rgb(255, 199, 100);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{agePieData[0].data[0]}}&nbsp;Below 21&nbsp;({{calculatePercentOfData(agePieData[0].data)[0]}}%)</p>
+                                    </div>
+
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;" *ngIf="agePieData[0].data[1] > 0" >
+                                        <div class="legendColor" style="background-color: rgb(115, 160, 235);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{agePieData[0].data[1]}}&nbsp;From 21-25&nbsp;({{calculatePercentOfData(agePieData[0].data)[1]}}%)</p>
+                                    </div>
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;" *ngIf="agePieData[0].data[2] > 0">
+                                        <div class="legendColor" style="background-color: rgb(255,55,155);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{agePieData[0].data[2]}}&nbsp;From 26-30&nbsp;({{calculatePercentOfData(agePieData[0].data)[2]}}%)</p>
+                                    </div>
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;" *ngIf="agePieData[0].data[3] > 0">
+                                        <div class="legendColor" style="background-color: rgb(84, 193, 69);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{agePieData[0].data[3]}}&nbsp;Above 30&nbsp;({{calculatePercentOfData(agePieData[0].data)[3]}}%)</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-12 col-md-4 col-lg-4 m-top" style="border-left:2px solid #ccc ;height: 300px;"> -->
+                    <div class="col-sm-12 col-md-4 col-lg-4 m-top" >
+                        <h4 style="text-align: center; z-index:2;"><b>Relationship Status</b></h4>
+                        <div id="piechartforrelation" class="mleft" style="margin-top:30px;">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-6">
+                                    <canvas baseChart #relationChart="base-chart" width="160" height="160" [datasets]="relationPieData" [type]="'pie'" [legend]="true" [labels]="relationLabels" [legend]="false" [options]="relationPieOptions" id="myChartPie" style="margin-left: auto;margin-right:auto">
+                                    </canvas>
+                                </div>
+
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-6" style="padding:0px;margin-top: 50px;" *ngIf="relationPieData[0].data[0] > 0">
+
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;">
+                                        <div class="legendColor" style="background-color: #ccc;width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{relationPieData[0].data[0]}}&nbsp;Single&nbsp;({{calculatePercentOfData(relationPieData[0].data)[0]}}%)</p>
+                                    </div>
+
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -5px;" *ngIf="relationPieData[0].data[1] > 0">
+                                        <div class="legendColor" style="background-color: rgb(255, 99, 13);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{relationPieData[0].data[1]}}&nbsp;Dating&nbsp;({{calculatePercentOfData(relationPieData[0].data)[1]}}%)</p>
+                                    </div>
+                                    <div class="legends" style="vertical-align: middle;float: left;margin-left: -20px;" *ngIf="relationPieData[0].data[2] > 0">
+                                        <div class="legendColor" style="background-color: rgb(10, 200, 105);width: 15px;height: 15px;float: left;vertical-align: middle;"></div>
+                                        <p style="float: left;font-size:14px;vertical-align: middle;margin-top: -2px;">&nbsp;{{relationPieData[0].data[2]}}&nbsp;Complicated&nbsp;({{calculatePercentOfData(relationPieData[0].data)[2]}}%)</p>
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                            <!-- <google-chart [title]="'RelationShip Status'" [type]="relationChartType" [data]="relationPieData" [options]="relationPieOptions"> -->
+                            <!-- </google-chart> -->
+                            <!-- <div id="pie_chart2" [chartData]="relationPieData" [chartOptions]="relationPieOptions" chartType="PieChart" GoogleChart></div> -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="indicator" #pieLoader style="display: block; background-color: whitesmoke;"><span class="spinner"></span></div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="panel rounded shadow" id="event_table">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-title" style="font-weight:bold;">Events</h3>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-sm" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Refresh" onclick="onRefreshEventTable()"><i class="fa fa-refresh"></i></button>
+                    <!--<button type="button" class="btn btn-inverse" id="export2">Export</button>-->
+                    <button class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Collapse"><i class="fa fa-angle-up"></i></button>
+
+                    <button class="btn btn-sm" id="evExport" data-toggle="tooltip" (click)="exportexcel()" data-title="Download Excel"><i
+                            class="fa fa-download"></i></button>
+                </div>
+
+
+                <!--  
+                <div class="text-left-center m50">
+                    <div class="input-group" style="display:block; margin-top: 10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="dates" class="ticket_event_type_radio" (click)="dateAllChecked()"
+                                value="All" id="date_all" #dateAll checked>All
+                        </label>
+                         //this is inner line comment <label class="radio-inline"><input type="radio" name="ticket_event_type_radio" class="ticket_event_type_radio" value="single"> Single Ticket</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="dates" class="ticket_event_type_radio"
+                                (click)="customDateChecked()" value="customize" #customDate id="customDate">
+                            Customize</label>
+                    </div>
+                    <div class="mt-m-20"></div>
+                    <span id="custome_dates" class="mt-m-20" *ngIf="custom_date_check">
+
+                        <span style="margin-top: -10px !important;font-size: 16px;">From&nbsp;&nbsp;</span>
+                    <mat-form-field class="example-full-width" appearance="fill" style="line-height: none !important;">
+
+                        <input matInput [(ngModel)]="inputDate1" [matDatepicker]="picker1" placeholder="MM/DD/YYYY" (click)="picker1.open()">
+                        <mat-hint>mm/dd/yyyy</mat-hint>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field><span style="margin-top: -10px !important;font-size: 16px;">&nbsp;&nbsp;to&nbsp;&nbsp;</span>
+                    <mat-form-field class="example-full-width" appearance="fill" style="line-height: none !important;">
+
+                        <input matInput [(ngModel)]="inputDate2" [matDatepicker]="picker2" placeholder="MM/DD/YYYY" (click)="picker2.open()">
+                        <mat-hint>mm/dd/yyyy</mat-hint>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                    <button class="btn btn-primary w-55" (click)="getDataAccordingToDateRange()" style="padding:3px;margin-left: 10px;margin-top: -15px;height: 30px;">Done</button>
+                    </span>
+
+                </div>   -->
+                <div class="clearfix"></div>
+              
+            </div>
+            <div class="panel-body" style="overflow: scroll;">
+
+                <table id="event" #eventTable class="table  table-primary dataTable no-footer" *ngIf="eventTableData">
+                    <thead>
+
+                        <tr *ngIf="userRole == 'Admin'">
+                            <!--<th class="text-center" style="font-weight: bolder !important">
+                                <input name="select_all" value="1" id="example-select-all" checked type="checkbox" (click)="onSelectAndUnselectAllCheckbox()" /> All
+                            </th>-->
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Date</th>
+
+
+
+                            <th class="text-center " style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Name</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Producer</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Venue Name</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">City</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">State</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Reach</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Tickets Acquired</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Average Ticket Price</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Online Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Door Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Refunded Amount</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Net Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Transfer Fee</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Total Payable</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Total Advanced</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Final Payout</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Final Payout Date</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Socialite Fee</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Total Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Stripe Fee</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Stripe Top-Up</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Payout Fee</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Profit</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Profit Payout Date</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Pending Disputes</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Lost Disputes</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Final Balance</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Outstanding Refunds</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Net Profit</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Status</th>
+
+
+                        </tr>
+
+                        <tr *ngIf="userRole != 'Admin'">
+                            <!--<th class="text-center" style="font-weight: bolder !important;">
+                                <input name="select_all" value="1" id="example-select-all" checked type="checkbox" (click)="onSelectAndUnselectAllCheckbox()" /> All
+                            </th> -->
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Date</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Name</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Venue Name</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">City</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">State</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Reach</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Tickets Acquired</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Average Ticket Price</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Online Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Door Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Revenue</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Transfer Fee</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Event Profit</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Final Payout</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Outstanding Refunds</th>
+                            <th class="text-center" style="min-width:100px;max-width:auto;font-weight: bolder !important;">Net Profit</th>
+
+
+
+                        </tr>
+
+
+                    </thead>
+                    <!-- <tbody>
+                        <tr *ngFor="let list of eventTableData">
+                            <td *ngFor="let td of list">{{td}}</td>
+                        </tr>
+                    </tbody> -->
+
+                </table>
+
+            </div>
+        </div>
+
+
+        <div class="panel rounded shadow">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-title" style="font-weight:bold;">Transactions</h3>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-sm" data-action="refresh" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Refresh"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip" data-placement="top" data-title="Collapse"><i class="fa fa-angle-up"></i></button>
+
+                    <button class="btn btn-sm" id="export" data-toggle="tooltip" (click)="transactionexportexcel()" data-title="Download Excel"><i
+                            class="fa fa-download"></i></button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body" style="overflow:scroll;">
+
+
+                <table id="transaction" #transactionTable class="table table-striped table-teal dataTable no-footer">
+                    <thead>
+
+                        <tr *ngIf="userRole == 'Admin'">
+
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Acquired On</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Customer Name</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Event Name</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Event Date</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Quantity</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Amount</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Total Amount</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Type</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Promo Code</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Customer Email</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Gender</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Age</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Relationship Status</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Scanned On</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Device</th>
+
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Ticket ID</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Balance ID</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Transaction Number</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Status</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Action</th>
+
+
+
+                        </tr>
+
+                        <tr *ngIf="userRole != 'Admin'">
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Acquired On</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Customer Name</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Event Name</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Event Date</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Quantity</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Amount</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Type</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Promo Code</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Customer Email</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Gender</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Age</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Relationship Status</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Scanned On</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Device</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Ticket ID</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Balance ID</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone">Transaction Number</th>
+                            <th class="text-center" style="min-width: 100px;font-weight: bolder !important;" data-hide="phone" id="statusHead">Status
+                            </th>
+                        </tr>
+
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+
+        <!-- Start footer content -->
+        <!-- <footer class="footer-content"> -->
+        <!-- LITE - Luminous Ideas for Technological Evolutions LLC | contact@whats42nite.com | <a href="https://www.whats42nite.com/T&amp;C.html" target="_blank">Terms and Conditions</a> -->
+        <!--    https://www.whats42nite.com/tnc.php-->
+        <!-- </footer> -->
+
+    </div>
+    <div class="loader-bg" id="loader42nite" *ngIf="loader" style="display:block;">
+        <div class="loader">
+            <img src="https://www.whats42nite.com/prodev/loading.gif" style="width:100px; height:100px;">
+        </div>
+    </div>
+</section>
+<script>
+</script>

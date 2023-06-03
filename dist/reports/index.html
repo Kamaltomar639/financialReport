@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <meta charset="utf-8">
+    <title>Reports</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- <link rel="stylesheet" href="assets/admin/css/newDesign.css"> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+    <script src="https://www.whats42nite.com/prodev/views/table2excel/table2Excel.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style type="text/css">@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:normal;src:url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVQ.woff) format('woff');}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:normal;src:url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVQ.woff) format('woff');}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:normal;src:url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVQ.woff) format('woff');}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:normal;src:url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVQ.woff) format('woff');}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2');unicode-range:U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2');unicode-range:U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2');unicode-range:U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu0SC55K5gw.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSOmu0SC55K5gw.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSymu0SC55K5gw.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS2mu0SC55K5gw.woff2) format('woff2');unicode-range:U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSCmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format('woff2');unicode-range:U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:100%;src:url(https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script src="https://www.whats42nite.com/prodev/assets/admin/js/jquery.min.js"></script>
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <!-- <link href="assets/global/plugins/bower_components/datatables/css/dataTables.bootstrap.css" rel="stylesheet"> -->
+    <!-- <link href="assets/global/plugins/bower_components/datatables/css/datatables.responsive.css" rel="stylesheet"> -->
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/fuelux/dist/css/fuelux.min.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/admin/css/reset.css" rel="stylesheet">
+
+    <link href="https://www.whats42nite.com/prodev/assets/admin/css/yii-custom.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/admin/css/themes/default.theme.css" rel="stylesheet">
+
+    <link href="https://www.whats42nite.com/prodev/assets/admin/css/custom.css" rel="stylesheet">
+    <!-- <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+    <!-- <script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/loader.js"></script> -->
+
+
+
+    <link href="https://www.whats42nite.com/prodev/assets/global/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.whats42nite.com/prodev/assets/admin/js/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/global/plugins/bower_components/Chart.js/Chart.min.js"></script> -->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" /> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" type="text/javascript"></script> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script> -->
+    <!-- <script src="sweetalert2.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+    <link href="https://www.whats42nite.com/prodev/assets/layout.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/admin/css/components.css" rel="stylesheet">
+    <link href="https://www.whats42nite.com/prodev/assets/plugins.css" rel="stylesheet">
+
+    <script>
+        // !important: You want to give this variable(var googleLoaded = false;). This is used to run multiple chart in your jade.
+        var googleLoaded = false;
+        // !important: Define which chart packages to preload.Because this package uses ChartWrappers you can use any chart type that Google supports, but if it // isn't loaded it will load it on demand. 
+        var googleChartsPackagesToLoad = ['geochart'];
+    </script>
+<style>@-webkit-keyframes cdk-text-field-autofill-start{}@-webkit-keyframes cdk-text-field-autofill-end{}body,html{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}</style><link rel="stylesheet" href="styles.028fc77e4f1fc2af7f5a.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.028fc77e4f1fc2af7f5a.css"></noscript></head>
+
+<body>
+    <app-root></app-root>
+<script src="runtime-es2017.9096597f96d43c7d5bf6.js" type="module"></script><script src="runtime-es5.9096597f96d43c7d5bf6.js" nomodule defer></script><script src="polyfills-es5.98fedf9f687e41360985.js" nomodule defer></script><script src="polyfills-es2017.6af3599570f6e485b90c.js" type="module"></script><script src="scripts.a069cf3d4c6f5803ad74.js" defer></script><script src="main-es2017.042fcee820155a1e32b2.js" type="module"></script><script src="main-es5.042fcee820155a1e32b2.js" nomodule defer></script>
+
+<script>
+    const encodeFormData = (data) => {
+        return Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&');
+    }
+
+    function onRefundFee(transactionId, userName, checkType, amount, full, stripe, type) {
+        let title = 'Refund';
+        let titleSmall = 'refund';
+        if (type == 'Courtesy' || type == 'RSVP') {
+            title = 'Invalidate';
+            titleSmall = 'invalidate';
+        }
+        let text =
+            `<h5>Are you sure you wish to ${titleSmall} this transaction by ${userName}</h5>
+            <p>Please select required refund type</p>
+            <br><br>
+            <label class="radio-inline"  style="float:left;margin-left:20%"><input type="radio" name="refundType" value="3" class="creator_radios" checked>Ticket Amount<b>($${amount})</b></label>
+            <br><br>
+            <label class="radio-inline" style="float:left;margin-left:20%"><input type="radio" name="refundType" value="2" class="creator_radios">Full Refund w/o stripe fee<b>($${stripe})</b></label>
+            <br><br>
+            <label class="radio-inline" style="float:left;margin-left:20%"><input type="radio" name="refundType" value="1" class="creator_radios">Full Refund<b>($${full})</b></label>
+            <br><br>
+            `;
+        if (type == 'Courtesy' || type == 'RSVP') {
+            text = `<h5>Are you sure you wish to invalidate this Courtesy/RSVP ticket transaction?</h5>`;
+        }
+        document.getElementById('refundButton' + transactionId).disabled = true;
+        let required_refund = 0;
+
+        Swal.fire({
+            title: `${title}`,
+
+            html: `${text}`,
+            icon: 'none',
+
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let required_refund;
+                if (type == 'Courtesy' || type == 'RSVP') {
+                    required_refund = 0;
+                } else {
+                    required_refund = $('input[name="refundType"]:checked').val();
+                }
+                $("#loader42nite").show()
+                let formdata = encodeFormData({
+                    transaction_id: transactionId,
+                    user_id: 2,
+                    required_refund: required_refund
+                })
+                fetch('https://www.whats42nite.com/productionbackup/apiv2/pro/CancelTransactionV2', {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'POST',
+                    body: formdata
+                }).then((res) => {
+                    return res.json();
+                }).then((res) => {
+                    if (res.status == 'Success' || res.status == 'success') {
+                        $('#table2').DataTable().ajax.url(getEventURL()).load();
+                        $('#table').DataTable().ajax.url(getURL()).load();
+                        $("#loader42nite").hide()
+                        Swal.fire('', 'Transaction refunded successfully', 'success')
+
+                    } else {
+                        $("#loader42nite").hide()
+                        document.getElementById('refundButton' + transactionId).disabled = false;
+                        Swal.fire('', res.message, 'error')
+                    }
+
+                })
+
+            } else {
+                document.getElementById('refundButton' + transactionId).disabled = false;
+            }
+        })
+    }
+
+    function sendMail(ticketId, Ids, buttonId, scanned, count) {
+        // console.log(scanned)
+
+        event_id = Ids.split(',')[0];
+        user_id = Ids.split(',')[1];
+        // console.log(buttonId,'infunction')
+        if (scanned != 'Not Scanned') {
+            if (scanned == count) {
+                Swal.fire('', 'These courtesy tickets have already been scanned', 'error')
+                return
+            }
+        }
+        $("#loader42nite").show()
+        document.getElementById('mailButton' + buttonId).disabled = true;
+        fetch('https://www.whats42nite.com/productionbackup/apiv2/event/SendEmail', {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST',
+            body: encodeFormData({
+                user_id: user_id,
+                event_id: event_id,
+                order_id: ticketId
+            })
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            // console.log(res);
+            // $('#customerTicketTable').DataTable().ajax.url('<?php echo $prodev ?>report/getfinancialreportajax?event_ids=<?php echo $event_meta_id ?>').load();
+            document.getElementById('mailButton' + buttonId).disabled = false;
+            $("#loader42nite").hide()
+            Swal.fire('', 'Mail sent successfully', 'success')
+        })
+
+    }
+
+
+    let event_id_array = [];
+
+    function onChooseEvent(id) {
+        event_id_array = JSON.parse(window.localStorage.getItem('event_id_array'))
+        var event_id = id;
+        // console.log(event_id)
+        // console.log(event_id_array)
+        var element = document.getElementById('event_' + id);
+        if (element.checked == true) {
+            event_id_array.push(event_id)
+            window.localStorage.setItem('event_id_array', JSON.stringify(event_id_array))
+            window.dispatchEvent(new Event('storage'))
+        } else {
+            for (var x = 0; x < event_id_array.length; x++) {
+                if (event_id_array[x] == event_id) {
+                    event_id_array.splice(x, 1)
+                    window.localStorage.setItem('event_id_array', JSON.stringify(event_id_array))
+                    window.dispatchEvent(new Event('storage'))
+                        // console.log(event_id_array)
+                }
+            }
+        }
+        // console.log(event_id_array)
+    }
+
+    window.onload = function() {
+
+        localStorage.setItem('event_id_array', JSON.stringify([]));
+        // window.removeEventListener('storage')
+        // console.log('workingonload')
+    }
+</script>
+
+</body></html>
